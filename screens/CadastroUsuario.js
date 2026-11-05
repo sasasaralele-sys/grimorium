@@ -1,15 +1,25 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { cadastrarUsuario } from '../services/api';
 
 export default function CadastroUsuario({ navigation }) {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
-  const handleCadastro = () => {
-    // Aqui depois faremos a integração com a rota do backend em Node.js
-    Alert.alert('Sucesso', 'Conta criada com sucesso! Faça login.');
-    navigation.goBack();
+  const handleCadastro = async () => {
+    if (!nome || !email || !senha) {
+      Alert.alert('Atenção', 'Preencha todos os campos!');
+      return;
+    }
+
+    try {
+      await cadastrarUsuario({ nome, email, senha, nivel: 'praticante' });
+      Alert.alert('Sucesso', 'Conta criada com sucesso! Faça login.');
+      navigation.goBack();
+    } catch (error) {
+      Alert.alert('Erro', error.message);
+    }
   };
 
   return (
@@ -28,12 +38,13 @@ export default function CadastroUsuario({ navigation }) {
         style={styles.input} 
         placeholder="E-mail" 
         placeholderTextColor="#888" 
+        autoCapitalize="none"
         value={email}
         onChangeText={setEmail}
       />
       <TextInput 
         style={styles.input} 
-        placeholder="Senha (com hash seguro)" 
+        placeholder="Senha" 
         placeholderTextColor="#888" 
         secureTextEntry 
         value={senha}

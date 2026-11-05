@@ -2,12 +2,18 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 
-// Força o carregamento da conexão com o MySQL ao iniciar o servidor
-require('./database/conexao'); 
+// Conecta ao banco de dados MySQL
+require('./database/conexao');
+
+// IMPORTANTE: Importa as rotas de autenticação
+const authRoutes = require('./routes/authRoutes');
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+
+// IMPORTANTE: Ativa o prefixo /api/auth para as rotas
+app.use('/api/auth', authRoutes);
 
 app.get('/', (req, res) => {
   res.json({ mensagem: 'API do Grimorium rodando perfeitamente! 🌿✨' });

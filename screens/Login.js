@@ -1,9 +1,37 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, Platform } from 'react-native';
+import { logarUsuario } from '../services/api';
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+
+  const showAlert = (titulo, mensagem) => {
+    if (Platform.OS === 'web') {
+      alert(`${titulo}: ${mensagem}`);
+    } else {
+      Alert.alert(titulo, mensagem);
+    }
+  };
+
+  const handleLogin = async () => {
+    if (!email || !senha) {
+      showAlert('Atenção', 'Informe e-mail e senha!');
+      return;
+    }
+
+    try {
+      const resultado = await logarUsuario({ email, senha });
+      showAlert('Sucesso', resultado.mensagem);
+      
+      console.log('Token JWT recebido:', resultado.token);
+
+      // Redireciona para a tela Home
+      navigation.replace('Home');
+    } catch (error) {
+      showAlert('Erro ao Entrar', error.message);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -14,6 +42,7 @@ export default function Login({ navigation }) {
         style={styles.input} 
         placeholder="E-mail" 
         placeholderTextColor="#888" 
+        autoCapitalize="none"
         value={email}
         onChangeText={setEmail}
       />
@@ -26,7 +55,7 @@ export default function Login({ navigation }) {
         onChangeText={setSenha}
       />
 
-      <TouchableOpacity style={styles.button} onPress={() => navigation.replace('Home')}>
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Entrar</Text>
       </TouchableOpacity>
 
