@@ -1,33 +1,23 @@
-📖 Grimorium 
+# Grimorium 🌿✨
 
-1. Identificação do Problema 
+Aplicativo digital de grimório desenvolvido com React Native/Expo, Node.js, Express e MySQL.
 
-A dispersão de informações sobre práticas de bruxaria natural, ervas, culinária mágica e rituais sazonais em livros físicos fragmentados e anotações soltas, gerando dificuldade para organizar estudos, acompanhar ciclos lunares/sazonais e manter um registro pessoal seguro. 
+## O que foi desenvolvido e implementado (Entrega 2)
 
-2. Contexto e Público Afetado 
+### 1. Banco de Dados (MySQL)
+* Criação do banco de dados relacional `grimorium`.
+* Tabela de `usuarios` configurada com suporte a níveis de acesso (`praticante` e `admin`).
+* Tabela de `rituais` estruturada para armazenamento das anotações pessoais.
 
-Praticantes de bruxaria natural, verde, culinária mágica e entusiastas de autoconhecimento e magia sazonal que buscam um espaço centralizado, digital e privado para suas práticas. 
+### 2. Backend (Node.js & Express)
+* Servidor REST configurado e rodando na porta 3000.
+* Conexão stabelecida com o banco de dados MySQL (`mysql2`).
+* Endpoints de Autenticação (`/api/auth`):
+  * **Cadastro (`/cadastrar`)**: Com criptografia de senha utilizando `bcryptjs`.
+  * **Login (`/login`)**: Com geração de token de sessão `JWT` (jsonwebtoken).
+* Middlewares de segurança e validação de rotas configurados.
 
-3. Justificativa 
-
-O aplicativo centraliza guias práticos e referências em um só lugar, unindo o acesso a conteúdos sazonais com um grimório pessoal digital para anotações do usuário. 
-
-4. Proposta de Solução 
-
-Desenvolvimento de uma aplicação mobile em React Native (Expo) chamada Grimorium, que oferece um guia de conteúdos comunitários/oficiais e uma área restrita/privada de anotações (Grimório Pessoal) para cada praticante. 
-
-5. Tipos de Usuário e Permissões Iniciais 
-
-Usuário Comum (Praticante): Pode ler os guias, favoritos e gerenciar seu próprio grimório pessoal (CRUD de anotações privadas). 
-
-Administrador (Mestre/Guia): Gerencia o conteúdo oficial do aplicativo (adicionar novos rituais, dicas sazonais e ervas ao catálogo global). 
-
-6. Telas Previstas (Primeira Versão) 
-
-Home / Dashboard: Tela inicial com boas-vindas, destaques sazonais e acesso rápido às abas. 
-
-Guia de Rituais & Ervas: Listagem de conteúdos educativos e práticos. 
-
-Meu Grimório: Área de anotações pessoais do usuário. 
-
- 
+### 3. Frontend (React Native & Expo)
+* Estrutura de navegação de telas implementada.
+* Telas de **Login** e **Cadastro** integradas com o backend através de requisições `fetch()`.
+* Tratamento de respostas da API e feedback visual para a usuária.
