@@ -13,7 +13,7 @@ exports.listarRituais = (req, res) => {
   });
 };
 
-// Criar novo ritual
+// Criar novo ritual (Create)
 exports.criarRitual = (req, res) => {
   const { titulo, categoria, conteudo } = req.body;
   const usuarioId = req.usuario.id;
@@ -34,7 +34,25 @@ exports.criarRitual = (req, res) => {
   });
 };
 
-// Deletar ritual
+// Atualizar ritual (Update)
+exports.atualizarRitual = (req, res) => {
+  const { id } = req.params;
+  const { titulo, categoria, conteudo } = req.body;
+  const usuarioId = req.usuario.id;
+
+  const query = 'UPDATE rituais SET titulo = ?, categoria = ?, conteudo = ? WHERE id = ? AND usuario_id = ?';
+  conexao.query(query, [titulo, categoria, conteudo, id, usuarioId], (err, result) => {
+    if (err) {
+      return res.status(500).json({ erro: 'Erro ao atualizar ritual' });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ erro: 'Ritual não encontrado ou permissão negada' });
+    }
+    res.json({ mensagem: 'Ritual atualizado com sucesso!' });
+  });
+};
+
+// Deletar ritual (Delete)
 exports.deletarRitual = (req, res) => {
   const { id } = req.params;
   const usuarioId = req.usuario.id;

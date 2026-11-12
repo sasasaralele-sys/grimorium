@@ -5,6 +5,7 @@ const { verificarToken } = require('../middlewares/autenticarToken');
 
 router.get('/', verificarToken, ritualController.listarRituais);
 router.post('/', verificarToken, ritualController.criarRitual);
+router.put('/:id', verificarToken, ritualController.atualizarRitual);
 router.delete('/:id', verificarToken, ritualController.deletarRitual);
 
 module.exports = router;

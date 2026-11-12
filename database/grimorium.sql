@@ -20,3 +20,5 @@ CREATE TABLE IF NOT EXISTS rituais (
   conteudo TEXT,
   FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
 );
+
+UPDATE usuarios SET nivel = 'admin' WHERE email = 'eeee@gmail.com';
