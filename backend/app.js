@@ -8,6 +8,7 @@ require('./database/conexao');
 // Importação das rotas
 const authRoutes = require('./routes/authRoutes');
 const rituaisRoutes = require('./routes/rituaisRoutes'); // Nova rota da Entrega 3
+const usuariosRoutes = require('./routes/usuariosRoutes');
 
 const app = express();
 app.use(express.json());
@@ -16,6 +17,7 @@ app.use(cors());
 // Registro das rotas
 app.use('/api/auth', authRoutes);
 app.use('/api/rituais', rituaisRoutes); // Ativa /api/rituais
+app.use('/api/usuarios', usuariosRoutes);
 
 app.get('/', (req, res) => {
   res.json({ mensagem: 'API do Grimorium rodando perfeitamente! 🌿✨' });

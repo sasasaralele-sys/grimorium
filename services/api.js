@@ -11,6 +11,12 @@ export function getNivelUsuario() {
   return nivelUsuario;
 }
 
+export function logout() {
+  tokenUsuario = '';
+  nivelUsuario = '';
+}
+
+// 1. Autenticação
 export async function logarUsuario(dados) {
   const resposta = await fetch(`${API_URL}/api/auth/login`, {
     method: 'POST',
@@ -36,6 +42,7 @@ export async function cadastrarUsuario(dados) {
   return resultado;
 }
 
+// 2. Rituais Privados (CRUD do Grimório Pessoal)
 export async function obterRituais() {
   const resposta = await fetch(`${API_URL}/api/rituais`, {
     method: 'GET',
@@ -76,7 +83,52 @@ export async function deletarRitual(id) {
   return resultado;
 }
 
-export function logout() {
-  tokenUsuario = '';
-  nivelUsuario = '';
+// 3. Conteúdos Oficiais (Guia Público gerido pelo Admin)
+export async function obterRituaisOficiais() {
+  const resposta = await fetch(`${API_URL}/api/rituais/oficiais`, {
+    method: 'GET',
+    headers: { 'Authorization': `Bearer ${tokenUsuario}` },
+  });
+  const resultado = await resposta.json();
+  if (!resposta.ok) throw new Error(resultado.erro || 'Erro ao buscar guia oficial');
+  return resultado;
+}
+
+export async function criarRitualOficial(dados) {
+  const resposta = await fetch(`${API_URL}/api/rituais/oficial`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${tokenUsuario}`
+    },
+    body: JSON.stringify(dados),
+  });
+  const resultado = await resposta.json();
+  if (!resposta.ok) throw new Error(resultado.erro || 'Erro ao cadastrar conteúdo oficial');
+  return resultado;
+}
+
+// 4. Gestão de Utilizadores (Exclusivo Admin)
+export async function obterUsuarios() {
+  const resposta = await fetch(`${API_URL}/api/usuarios`, {
+    method: 'GET',
+    headers: { 'Authorization': `Bearer ${tokenUsuario}` },
+  });
+  const resultado = await resposta.json();
+  if (!resposta.ok) throw new Error(resultado.erro || 'Erro ao carregar usuários');
+  return resultado;
+}
+
+export async function alterarNivelUsuario(id, nivel) {
+  const resposta = await fetch(`${API_URL}/api/usuarios/${id}/nivel`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${tokenUsuario}`
+    },
+    body: JSON.stringify({ nivel }),
+  });
+  const resultado = await resposta.json();
+  if (!resposta.ok) throw new Error(resultado.erro || 'Erro ao alterar nível');
+  return resultado;
 }

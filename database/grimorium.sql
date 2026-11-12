@@ -21,4 +21,4 @@ CREATE TABLE IF NOT EXISTS rituais (
   FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
 );
 
-UPDATE usuarios SET nivel = 'admin' WHERE email = 'eeee@gmail.com';
+ALTER TABLE rituais ADD COLUMN is_oficial BOOLEAN DEFAULT FALSE;
