@@ -6,6 +6,7 @@ export default function CadastroUsuario({ navigation }) {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const { cores } = useTheme();
 
   const handleCadastro = async () => {
     if (!nome || !email || !senha) {
@@ -24,6 +25,7 @@ export default function CadastroUsuario({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <ScrollView contentContainerStyle={[styles.container, { backgroundColor: cores.fundo }]}></ScrollView>
       <Text style={styles.title}>Criar Nova Conta ✨</Text>
       <Text style={styles.subtitle}>Junte-se ao nosso círculo de sabedoria</Text>
 
@@ -59,10 +61,11 @@ export default function CadastroUsuario({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20, backgroundColor: '#222023' },
-  title: { fontSize: 26, fontWeight: 'bold', color: '#FAEADD', marginBottom: 5 },
-  subtitle: { fontSize: 14, color: '#F29CB7', marginBottom: 30 },
-  input: { width: '100%', height: 50, backgroundColor: '#332f35', borderRadius: 8, paddingHorizontal: 15, color: '#FAEADD', marginBottom: 15, borderWidth: 1, borderColor: '#522A6F' },
-  button: { width: '100%', height: 50, backgroundColor: '#522A6F', justifyContent: 'center', alignItems: 'center', borderRadius: 8, marginTop: 10 },
-  buttonText: { color: '#FAEADD', fontSize: 16, fontWeight: 'bold' }
+  container: { flexGrow: 1, padding: 20, backgroundColor: '#222023' },
+  title: { fontSize: 22, fontWeight: 'bold', color: '#FAEADD', marginBottom: 5 },
+  subtitle: { fontSize: 13, color: '#FBCF4F', marginBottom: 20 },
+  input: { height: 48, backgroundColor: '#222023', borderRadius: 8, paddingHorizontal: 15, color: '#FAEADD', borderWidth: 1, borderColor: '#522A6F', marginBottom: 12 },
+  textArea: { height: 120, textAlignVertical: 'top', paddingTop: 12 },
+  button: { backgroundColor: '#522A6F', padding: 15, borderRadius: 8, alignItems: 'center', borderWidth: 1, borderColor: '#F29CB7', marginTop: 10 },
+  buttonText: { color: '#FAEADD', fontWeight: 'bold', fontSize: 16 }
 });

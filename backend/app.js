@@ -2,25 +2,24 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 
-// Conecta ao banco de dados MySQL
 require('./database/conexao');
 
-// Importação das rotas
 const authRoutes = require('./routes/authRoutes');
-const rituaisRoutes = require('./routes/rituaisRoutes'); // Nova rota da Entrega 3
+const rituaisRoutes = require('./routes/rituaisRoutes');
 const usuariosRoutes = require('./routes/usuariosRoutes');
+const tematicoRoutes = require('./routes/tematicoRoutes');
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-// Registro das rotas
 app.use('/api/auth', authRoutes);
-app.use('/api/rituais', rituaisRoutes); // Ativa /api/rituais
+app.use('/api/rituais', rituaisRoutes);
 app.use('/api/usuarios', usuariosRoutes);
+app.use('/api/tematico', tematicoRoutes);
 
 app.get('/', (req, res) => {
-  res.json({ mensagem: 'API do Grimorium rodando perfeitamente! 🌿✨' });
+  res.json({ mensagem: 'API do Grimorium rodando perfeitamente! ✨' });
 });
 
 const PORT = process.env.PORT || 3000;

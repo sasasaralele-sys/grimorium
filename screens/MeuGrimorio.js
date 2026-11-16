@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, FlatList, Alert, Platform } from 'react-native';
 import { obterRituais, criarRitual, deletarRitual } from '../services/api';
+import { useTheme } from '../context/ThemeContext';
 
 export default function MeuGrimorio({ navigation }) {
   const [anotacoes, setAnotacoes] = useState([]);
   const [novoTitulo, setNovoTitulo] = useState('');
   const [novaCategoria, setNovaCategoria] = useState('');
   const [novoConteudo, setNovoConteudo] = useState('');
+  const { cores } = useTheme();
 
   const showAlert = (msg) => {
     if (Platform.OS === 'web') alert(msg);
@@ -61,6 +63,7 @@ export default function MeuGrimorio({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <ScrollView contentContainerStyle={[styles.container, { backgroundColor: cores.fundo }]}></ScrollView>
       <Text style={styles.title}>Meu Grimório Pessoal 📖</Text>
 
       <View style={styles.form}>

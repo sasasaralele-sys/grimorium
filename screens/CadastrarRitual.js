@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, ScrollView, Alert, Platform } from 'react-native';
 import { criarRitualOficial } from '../services/api';
+import { useTheme } from '../context/ThemeContext';
 
 export default function CadastrarRitual({ navigation }) {
   const [titulo, setTitulo] = useState('');
   const [categoria, setCategoria] = useState('');
   const [conteudo, setConteudo] = useState('');
+  const { cores } = useTheme();
 
   const showAlert = (msg) => {
     if (Platform.OS === 'web') alert(msg);
@@ -32,7 +34,7 @@ export default function CadastrarRitual({ navigation }) {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={[styles.container, { backgroundColor: cores.fundo }]}>
       <Text style={styles.title}>Publicar no Guia Oficial 🌟</Text>
       <Text style={styles.subtitle}>Este conteúdo ficará visível para todos os praticantes.</Text>
 
@@ -70,8 +72,8 @@ const styles = StyleSheet.create({
   container: { flexGrow: 1, padding: 20, backgroundColor: '#222023' },
   title: { fontSize: 22, fontWeight: 'bold', color: '#FAEADD', marginBottom: 5 },
   subtitle: { fontSize: 13, color: '#FBCF4F', marginBottom: 20 },
-  input: { height: 48, backgroundColor: '#332f35', borderRadius: 8, paddingHorizontal: 15, color: '#FAEADD', borderWidth: 1, borderColor: '#522A6F', marginBottom: 12 },
+  input: { height: 48, backgroundColor: '#222023', borderRadius: 8, paddingHorizontal: 15, color: '#FAEADD', borderWidth: 1, borderColor: '#522A6F', marginBottom: 12 },
   textArea: { height: 120, textAlignVertical: 'top', paddingTop: 12 },
-  button: { backgroundColor: '#522A6F', padding: 15, borderRadius: 8, alignItems: 'center', marginTop: 10 },
+  button: { backgroundColor: '#522A6F', padding: 15, borderRadius: 8, alignItems: 'center', borderWidth: 1, borderColor: '#F29CB7', marginTop: 10 },
   buttonText: { color: '#FAEADD', fontWeight: 'bold', fontSize: 16 }
 });

@@ -132,3 +132,39 @@ export async function alterarNivelUsuario(id, nivel) {
   if (!resposta.ok) throw new Error(resultado.erro || 'Erro ao alterar nível');
   return resultado;
 }
+
+// 5. Recursos Temáticos (Roda do Ano, Correspondências e Diário Calendário)
+export async function obterRodaDoAno() {
+  const resposta = await fetch(`${API_URL}/api/tematico/rodadoano`, {
+    headers: { 'Authorization': `Bearer ${tokenUsuario}` }
+  });
+  return resposta.json();
+}
+
+export async function obterCorrespondencias() {
+  const resposta = await fetch(`${API_URL}/api/tematico/correspondencias`, {
+    headers: { 'Authorization': `Bearer ${tokenUsuario}` }
+  });
+  return resposta.json();
+}
+
+export async function obterDiarioCalendario() {
+  const resposta = await fetch(`${API_URL}/api/tematico/diario`, {
+    headers: { 'Authorization': `Bearer ${tokenUsuario}` }
+  });
+  return resposta.json();
+}
+
+export async function salvarEntradaDiario(dados) {
+  const resposta = await fetch(`${API_URL}/api/tematico/diario`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${tokenUsuario}`
+    },
+    body: JSON.stringify(dados)
+  });
+  const resultado = await resposta.json();
+  if (!resposta.ok) throw new Error(resultado.erro || 'Erro ao salvar diário');
+  return resultado;
+}

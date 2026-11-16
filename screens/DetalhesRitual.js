@@ -1,8 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Alert, Platform } from 'react-native';
 import { deletarRitual } from '../services/api';
+import { useTheme } from '../context/ThemeContext';
 
 export default function DetalhesRitual({ route, navigation }) {
+  const { cores } = useTheme();
   const { ritual } = route.params || { 
     id: null,
     titulo: 'Ritual Exemplo', 
